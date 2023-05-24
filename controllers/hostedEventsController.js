@@ -6,20 +6,70 @@ const User = require("../models/userModel");
 const ErrorHander = require("../utils/errorhandler");
 
 exports.addHostedEvents = catchAsyncErrors(async (req, res, next) => {
-  const { title, guests, passcode } = req.body;
+  const {
+    title,
+    passcode,
+    hostName,
+    propertyName,
+    address,
+    eventDesc,
+    depositeDeadline,
+    secondDue,
+    cancelationDate,
+    reductionDate,
+    finalPaymentDate,
+    resortPic,
+    resortName,
+    groupTravelDate,
+    resortDetails,
+    resortAmenities,
+    travelRestrictions,
+    travelRestrictionsHighlights,
+    destinationGuide,
+  } = req.body;
 
   if (!title || !passcode) {
     return next(new ErrorHander("Please Enter All Required Fields", 400));
   }
   const hostedEvent = await HostedEvent.create({
     title,
-    guests,
     passcode,
+    hostName,
+    propertyName,
+    address,
+    eventDesc,
+    depositeDeadline,
+    secondDue,
+    cancelationDate,
+    reductionDate,
+    finalPaymentDate,
+    resortPic,
+    resortName,
+    groupTravelDate,
+    resortDetails,
+    resortAmenities,
+    travelRestrictions,
+    travelRestrictionsHighlights,
+    destinationGuide,
   });
   res.status(201).json({
     success: true,
     hostedEvent,
   });
+});
+
+exports.removeHostedEvent = catchAsyncErrors(async (req, res) => {
+  try {
+    const hostedEvent = await HostedEvent.findByIdAndRemove(req.params.id);
+    res.status(200).json({
+      success: true,
+      hostedEvent,
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: "Something went wrong!",
+    });
+  }
 });
 
 exports.getHostedEvents = catchAsyncErrors(async (req, res, next) => {

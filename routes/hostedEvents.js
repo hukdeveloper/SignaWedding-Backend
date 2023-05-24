@@ -10,9 +10,15 @@ const {
   addReservedGuest,
   reservedGuestsList,
   removeEventGuest,
+  removeHostedEvent,
 } = require("../controllers/hostedEventsController");
 
 router.route("/admin/hostedEvent").get(isAuthenticatedUser, getHostedEvents);
+
+router
+  .route("/admin/hostedEvent/:id")
+  .delete(isAuthenticatedUser, authorizeRoles("admin"), removeHostedEvent);
+
 router
   .route("/user/hostedEvents/:id")
   .get(isAuthenticatedUser, getHostedEventSingleUser);

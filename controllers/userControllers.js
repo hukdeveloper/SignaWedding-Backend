@@ -16,6 +16,12 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
   const { name, email, password, role, status } = req.body;
 
+  const isEmailExits = await User.find({ email });
+
+  if (isEmailExits) {
+    return next(new ErrorHander("Email Already Exits !", 400));
+  }
+
   const user = await User.create({
     name,
     email,

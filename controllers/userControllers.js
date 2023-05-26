@@ -195,6 +195,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
+    password: req.body.password,
   };
 
   // if (req.body.avatar !== "") {
@@ -216,7 +217,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
   //   };
   // }
 
-  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
@@ -224,6 +225,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    user,
   });
 });
 

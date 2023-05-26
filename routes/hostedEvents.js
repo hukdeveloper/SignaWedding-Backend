@@ -11,6 +11,7 @@ const {
   reservedGuestsList,
   removeEventGuest,
   removeHostedEvent,
+  updateHostedEvent,
 } = require("../controllers/hostedEventsController");
 
 router.route("/admin/hostedEvent").get(isAuthenticatedUser, getHostedEvents);
@@ -18,6 +19,10 @@ router.route("/admin/hostedEvent").get(isAuthenticatedUser, getHostedEvents);
 router
   .route("/admin/hostedEvent/:id")
   .delete(isAuthenticatedUser, authorizeRoles("admin"), removeHostedEvent);
+
+router
+  .route("/admin/hostedEvent/:id")
+  .put(isAuthenticatedUser, authorizeRoles("admin"), updateHostedEvent);
 
 router
   .route("/user/hostedEvents/:id")
@@ -33,12 +38,12 @@ router
   .route("/user/hostedEvents/guest/:id")
   .put(isAuthenticatedUser, addGuestsToEvent);
 
-router
-  .route("/user/hostedEvent/reservedGuest/:id")
-  .post(isAuthenticatedUser, addReservedGuest);
+// router
+//   .route("/user/hostedEvent/reservedGuest/:id")
+//   .post(isAuthenticatedUser, addReservedGuest);
 
-router
-  .route("/user/hostedEvent/reservedGuests/:id")
-  .get(isAuthenticatedUser, reservedGuestsList);
+// router
+//   .route("/user/hostedEvent/reservedGuests/:id")
+//   .get(isAuthenticatedUser, reservedGuestsList);
 
 module.exports = router;

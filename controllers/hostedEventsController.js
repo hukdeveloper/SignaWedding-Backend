@@ -1,7 +1,7 @@
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const Guests = require("../models/guestsModel");
 const HostedEvent = require("../models/hostedEventsModel");
-const ReservedGuests = require("../models/reservedGuests");
+const ReservedGuests = require("../models/reservedGuestsModel");
 const User = require("../models/userModel");
 const ErrorHander = require("../utils/errorhandler");
 
@@ -56,6 +56,49 @@ exports.addHostedEvents = catchAsyncErrors(async (req, res, next) => {
     success: true,
     hostedEvent,
   });
+});
+
+exports.updateHostedEvent = catchAsyncErrors(async (req, res) => {
+  try {
+    const hostedEventUpdate = await ({
+      title = req.body.title,
+      passcode = req.body.passcode,
+      hostName = req.body.hostName,
+      propertyName = req.body.propertyName,
+      address = req.body.address,
+      eventDesc = req.body.eventDesc,
+      depositeDeadline = req.body.depositeDeadline,
+      secondDue = req.body.secondDue,
+      cancelationDate = req.body.cancelationDate,
+      reductionDate = req.body.reductionDate,
+      finalPaymentDate = req.body.finalPaymentDate,
+      resortPic = req.body.resortPic,
+      resortName = req.body.resortName,
+      groupTravelDate = req.body.groupTravelDate,
+      resortDetails = req.body.resortDetails,
+      resortAmenities = req.body.resortAmenities,
+      travelRestrictions = req.body.travelRestrictions,
+      travelRestrictionsHighlights = req.body.travelRestrictionsHighlights,
+      destinationGuide = req.body.destinationGuide,
+    } = req.body);
+    const hostedEvent = await HostedEvent.findByIdAndUpdate(
+      req.params.id,
+      hostedEventUpdate,
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+    res.status(200).json({
+      success: true,
+      hostedEvent,
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: "Something went wrong!",
+    });
+  }
 });
 
 exports.removeHostedEvent = catchAsyncErrors(async (req, res) => {
@@ -176,7 +219,7 @@ exports.addReservedGuest = catchAsyncErrors(async (req, res) => {
   }
 });
 
-exports.reservedGuestsList = catchAsyncErrors(async (req, res) => {
+exports.getHostedEventsReservedGuests = catchAsyncErrors(async (req, res) => {
   try {
     const eventId = req.params.id;
     // const eventId = "646796c02e7c8f6f5d495562";

@@ -11,6 +11,7 @@ exports.addHostedEventsToUser = catchAsyncErrors(async (req, res, next) => {
         runValidators: true,
       }
     );
+    console.log(user);
     res.status(200).json({
       success: true,
       user,

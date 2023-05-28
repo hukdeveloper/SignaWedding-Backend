@@ -7,8 +7,6 @@ const {
   getHostedEventSingleUser,
   addGuestsToEvent,
   getAllEventGuest,
-  addReservedGuest,
-  reservedGuestsList,
   removeEventGuest,
   removeHostedEvent,
   updateHostedEvent,

@@ -26,7 +26,7 @@ router
   .route("/admin/hostedEvent/addHostedEvent")
   .post(isAuthenticatedUser, authorizeRoles("admin"), addHostedEvents);
 
-router.route("/admin/hostedEvent").get(isAuthenticatedUser, getHostedEvents);
+router.route("/admin/hostedEvent").get(getHostedEvents);
 
 router
   .route("/admin/hostedEvent/reservedGuests/:id")

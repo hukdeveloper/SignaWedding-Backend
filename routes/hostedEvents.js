@@ -19,23 +19,13 @@ router.route("/admin/hostedEvent").get(getHostedEvents);
 //   .delete(isAuthenticatedUser, authorizeRoles("admin"), removeHostedEvent);
 router.route("/admin/hostedEvent/:id").delete(removeHostedEvent);
 
-router
-  .route("/admin/hostedEvent/:id")
-  .put(isAuthenticatedUser, authorizeRoles("admin"), updateHostedEvent);
+router.route("/admin/hostedEvent/:id").put(updateHostedEvent);
 
-router
-  .route("/user/hostedEvents/:id")
-  .get(isAuthenticatedUser, getHostedEventSingleUser);
+router.route("/user/hostedEvents/:id").get(getHostedEventSingleUser);
 
-router
-  .route("/user/hostedEvents/guests/:id")
-  .get(isAuthenticatedUser, getAllEventGuest);
-router
-  .route("/user/hostedEvents/guests/:id")
-  .delete(isAuthenticatedUser, removeEventGuest);
-router
-  .route("/user/hostedEvents/guest/:id")
-  .put(isAuthenticatedUser, addGuestsToEvent);
+router.route("/user/hostedEvents/guests/:id").get(getAllEventGuest);
+router.route("/user/hostedEvents/guests/:id").delete(removeEventGuest);
+router.route("/user/hostedEvents/guest/:id").put(addGuestsToEvent);
 
 // router
 //   .route("/user/hostedEvent/reservedGuest/:id")

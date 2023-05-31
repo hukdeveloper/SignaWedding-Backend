@@ -11,25 +11,15 @@ const {
 } = require("../controllers/hostedEventsController");
 const router = express.Router();
 
-router
-  .route("/admin/hostedEvent/user/:id")
-  .put(isAuthenticatedUser, authorizeRoles("admin"), addHostedEventsToUser);
-router
-  .route("/admin/hostedEvent/user/:id")
-  .delete(
-    isAuthenticatedUser,
-    authorizeRoles("admin"),
-    removeHostedEventFromUser
-  );
+router.route("/admin/hostedEvent/user/:id").put(addHostedEventsToUser);
+router.route("/admin/hostedEvent/user/:id").delete(removeHostedEventFromUser);
 
-router
-  .route("/admin/hostedEvent/addHostedEvent")
-  .post(isAuthenticatedUser, authorizeRoles("admin"), addHostedEvents);
+router.route("/admin/hostedEvent/addHostedEvent").post(addHostedEvents);
 
 router.route("/admin/hostedEvent").get(getHostedEvents);
 
 router
   .route("/admin/hostedEvent/reservedGuests/:id")
-  .get(isAuthenticatedUser, getHostedEventsReservedGuests);
+  .get(getHostedEventsReservedGuests);
 
 module.exports = router;

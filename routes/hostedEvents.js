@@ -12,11 +12,12 @@ const {
   updateHostedEvent,
 } = require("../controllers/hostedEventsController");
 
-router.route("/admin/hostedEvent").get(isAuthenticatedUser, getHostedEvents);
+router.route("/admin/hostedEvent").get(getHostedEvents);
 
-router
-  .route("/admin/hostedEvent/:id")
-  .delete(isAuthenticatedUser, authorizeRoles("admin"), removeHostedEvent);
+// router
+//   .route("/admin/hostedEvent/:id")
+//   .delete(isAuthenticatedUser, authorizeRoles("admin"), removeHostedEvent);
+router.route("/admin/hostedEvent/:id").delete(removeHostedEvent);
 
 router
   .route("/admin/hostedEvent/:id")

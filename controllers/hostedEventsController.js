@@ -123,6 +123,10 @@ exports.getHostedEvents = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+exports.getSingleHostedEvents = catchAsyncErrors(async (req, res, next) => {
+  const hostedEvent = await HostedEvent.findById(req.params.id);
+  res.status(200).json({ hostedEvent });
+});
 // 64678c1b6498d3902b58efbf
 
 exports.getHostedEventSingleUser = catchAsyncErrors(async (req, res, next) => {

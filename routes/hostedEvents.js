@@ -10,9 +10,11 @@ const {
   removeEventGuest,
   removeHostedEvent,
   updateHostedEvent,
+  getSingleHostedEvents,
 } = require("../controllers/hostedEventsController");
 
 router.route("/admin/hostedEvent").get(getHostedEvents);
+router.route("/admin/hostedEvent/:id").get(getSingleHostedEvents);
 
 // router
 //   .route("/admin/hostedEvent/:id")
